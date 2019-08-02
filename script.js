@@ -13,6 +13,7 @@ const diffCanvasCtx = diffCanvas.getContext("2d")
 const subscribeBackgroundImage = document.getElementById("subscribeBackgroundImage")
 let backgroundImageData = null
 let threshold = 0
+let light = 128
 
 function successCallback(stream) {
   video.srcObject = stream;
@@ -63,11 +64,10 @@ function getPictureFromVideo(video) {
     const length = videoImageData.data.length
     for(let i = 0;i < length;i = i+4) {
       if(backgroundImageData) {
-        if(
-          (videoImageData.data[i] + threshold > backgroundImageData.data[i] && videoImageData.data[i] - threshold < backgroundImageData.data[i]) && 
-          (videoImageData.data[i+1] + threshold > backgroundImageData.data[i+1] && videoImageData.data[i+1] - threshold < backgroundImageData.data[i+1]) && 
-          (videoImageData.data[i+2] + threshold > backgroundImageData.data[i+2] && videoImageData.data[i+2] - threshold < backgroundImageData.data[i+2])
-        ) {
+        const diffR = Math.abs(videoImageData.data[i] - backgroundImageData.data[i])
+        const diffG = Math.abs(videoImageData.data[i+1] - backgroundImageData.data[i+1])
+        const diffB = Math.abs(videoImageData.data[i+2] - backgroundImageData.data[i+2])
+        if(Math.max(diffR + diffG + diffB) < threshold) {
           videoImageData.data[i]   = 0
           videoImageData.data[i+1] = 0
           videoImageData.data[i+2] = 0
