@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="display: flex;flex-wrap: wrap;">
+    <div>
+      <h1>ビデオストリーム</h1>
+      <video id="video" style="display: none;"></video>
+      <canvas id="video-canvas" width="640" height="480"></canvas>
+      <div>
+        <button id="subscribeBackgroundImage">背景として登録</button>
+      </div>
+    </div>
+    <div>
+      <h1>背景画像</h1>
+      <canvas id="background-canvas" width="640" height="480"></canvas>
+    </div>
+    <div>
+      <h1>差分映像</h1>
+      <div id="bgImage" style="position: relative;width: 640px;height: 480px;background-position: center center;background-size: cover;">
+        <canvas id="diff-canvas" width="640" height="480" style="position: absolute;top:0;left: 0;"></canvas>
+      </div>
+      <div>
+          <div>範囲: 1 ~ 255</div>
+          <div>現在値: <spna id="currentValue">0</spna></div>
+          <input id="range" type="range" min="0" max="255" value="0" />
+          <div>
+            背景画像を選択: <input id="bgImageSelect" type="file" accept="image/*">
+          </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
